@@ -1,20 +1,13 @@
 from influxdb import InfluxDBClient
+from databaseConnection import DatabaseConnection
 
 
-class Influxdb_connection(object):
-    """An InfluxDb connection
-
-    Attributes:
-        feed_id: The id of the parent feed to which the datastream belongs
-        datastream_id: the id of the datastream. Eg. 0, 1, 2...
-        feed_type: either 'sensors', 'events', 'locations' or 'geo'
-    """
+class InfluxConnection(DatabaseConnection):
 
     def __init__(self, db_name, host='localhost', port=8086, user='root', password='root'):
         """Return an InfluxDBClient object which represents a connection to
         an InfluxDBClient object."""
-        # Connect to Influx DB
-        self.db_name = db_name
+        super(InfluxConnection, self).__init__(db_name)
 
         try:
             self.client = InfluxDBClient(host, port, user, password)
@@ -22,11 +15,14 @@ class Influxdb_connection(object):
             raise ConnectionError(
                 "Error connecting to InfluxDB client at: host: " + str(host) + "; on port: " + str(port))
 
-
-        if (not self.db_exists(db_name)):
+        if not self.db_exists(db_name):
             self.client.create_database(self.db_name)
-
         self.client.switch_database(self.db_name)
+
+    class Factory:
+        def create(self, db_name, host, port, user, password):
+            return InfluxConnection(db_name, host, port, user, password)
+
 
     def db_exists(self, db_name):
         for db in self.client.get_list_database():

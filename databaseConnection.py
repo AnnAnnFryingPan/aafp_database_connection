@@ -2,7 +2,7 @@ from abc import ABCMeta, abstractmethod
 
 
 class DatabaseConnection(object):
-    def __init__(self, db_name, host, port, user, password):
+    def __init__(self, db_name):
         self.db_name = db_name
         self.client = None
 
