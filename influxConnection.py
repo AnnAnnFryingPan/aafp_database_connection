@@ -33,9 +33,9 @@ class InfluxConnection(DatabaseConnection):
     def query_database(self, query):
         try:
             result = self.client.query(query)
-        except:
+        except Exception as err:
             raise ConnectionError(
-                "Error querying InfluxDB client. Check client is running/available")
+                "Error querying InfluxDB client: " + str(err))
         return result
 
     def get_recorded_measurement_list(self):
