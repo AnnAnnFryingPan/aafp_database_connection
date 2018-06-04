@@ -2,12 +2,12 @@ from influxdb import InfluxDBClient
 from databaseConnection import DatabaseConnection
 
 
-class InfluxConnection(DatabaseConnection):
+class DatabaseConnectionInflux(DatabaseConnection):
 
     def __init__(self, db_name, host='localhost', port=8086, user='root', password='root'):
         """Return an InfluxDBClient object which represents a connection to
         an InfluxDBClient object."""
-        super(InfluxConnection, self).__init__(db_name)
+        super(DatabaseConnectionInflux, self).__init__(db_name)
 
         try:
             self.client = InfluxDBClient(host, port, user, password)
@@ -21,7 +21,7 @@ class InfluxConnection(DatabaseConnection):
 
     class Factory:
         def create(self, db_name, host, port, user, password):
-            return InfluxConnection(db_name, host, port, user, password)
+            return DatabaseConnectionInflux(db_name, host, port, user, password)
 
 
     def db_exists(self, db_name):

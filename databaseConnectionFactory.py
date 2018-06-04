@@ -1,6 +1,6 @@
 # Polymorphic factory methods.
 from __future__ import generators
-from influxConnection import InfluxConnection
+from databaseConnectionInflux import DatabaseConnectionInflux
 
 
 class DatabaseConnectionFactory:
@@ -13,7 +13,7 @@ class DatabaseConnectionFactory:
     # A Template Method:
     def create_database_connection(db_type, db_name, host, port, user, password):
         if db_type not in DatabaseConnectionFactory.factories:
-            DatabaseConnectionFactory.factories[db_type] = eval(db_type.title() + 'Connection' + '.Factory()')
+            DatabaseConnectionFactory.factories[db_type] = eval('DatabaseConnection' + db_type.title() +  '.Factory()')
         return DatabaseConnectionFactory.factories[db_type].create(db_name, host, port, user, password)
 
     create_database_connection = staticmethod(create_database_connection)
