@@ -9,6 +9,11 @@ class DatabaseConnectionInflux(DatabaseConnection):
         an InfluxDBClient object."""
         super(DatabaseConnectionInflux, self).__init__(db_name)
 
+        self.host = host
+        self.port = port
+        self.user = user
+        self.password = password
+
         try:
             self.client = InfluxDBClient(host, port, user, password)
         except:
