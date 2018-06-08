@@ -58,8 +58,8 @@ class DatabaseConnectionInflux(DatabaseConnection):
                 query_str_2 = 'SELECT * FROM ' + measurement['name'] #+ ' WHERE time > now() - ' + str(previous_hours) + 'h'
                 query_result_2 = self.query_database(query_str_2)
                 list_result = list(query_result_2.get_points(measurement['name']))
-                if len(list_result) > 0:
-                    measurements.append({'name':measurement['name'], 'href': list_result[0]['href']})
+                if len(list_result) > 0 and 'type' in list_result[0] and list_result[0]['type'] == 'original':
+                    measurements.append({'name':measurement['name'], 'type': 'original', 'href': list_result[0]['href']})
 
         return measurements
 
