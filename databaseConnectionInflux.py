@@ -35,6 +35,12 @@ class DatabaseConnectionInflux(DatabaseConnection):
                 return True
         return False
 
+    def measurement_exists(self, measurement_name):
+        for measurement in self.client.get_list_measurements():
+            if measurement['name'] == measurement_name:
+                return True
+        return False
+
     def query_database(self, query):
         try:
             result = self.client.query(query)
@@ -44,7 +50,6 @@ class DatabaseConnectionInflux(DatabaseConnection):
         return result
 
     def get_recorded_measurement_list(self):
-        # WARNING: THIS FUNCTION ONLY WORKS FOR NEWER FORMAT OF POLLER OUTPUT (SEE data_sources FOLDER README.TXT FILES)
         measurements = []
 
         try:
@@ -63,9 +68,8 @@ class DatabaseConnectionInflux(DatabaseConnection):
 
         return measurements
 
-    def import_restful_api_response(self, data_points_json):
+    def import_json(self, data_points_json):
         try:
             self.client.write_points(data_points_json, time_precision='s')
-        except:
-            raise ConnectionError(
-                "Error importing to InfluxDB client. Check client is running/available")
+        except Exception as err:
+            raise ConnectionError("Error importing to InfluxDB database" + self.db_name + ": " + str(err))
