@@ -41,6 +41,9 @@ class DatabaseConnectionInflux(DatabaseConnection):
                 return True
         return False
 
+    def drop_database(self, db_name):
+        self.client.drop_database(db_name)
+
     def query_database(self, query):
         try:
             result = self.client.query(query)
@@ -49,6 +52,7 @@ class DatabaseConnectionInflux(DatabaseConnection):
                 "Error querying InfluxDB client: " + str(err))
         return result
 
+    #ToDo: This method seems dedicated to the CV Dashboard. Move dashboard logic to dashboard code and make this more generic.
     def get_recorded_measurement_list(self):
         measurements = []
 
