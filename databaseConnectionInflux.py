@@ -36,7 +36,8 @@ class DatabaseConnectionInflux(DatabaseConnection):
         return False
 
     def measurement_exists(self, measurement_name):
-        for measurement in self.client.get_list_measurements():
+        measurement_list = self.client.get_list_measurements()
+        for measurement in measurement_list:
             if measurement['name'] == measurement_name:
                 return True
         return False
@@ -64,9 +65,9 @@ class DatabaseConnectionInflux(DatabaseConnection):
 
         for result_part in query_result:
             for measurement in result_part:
-                query_str_2 = 'SELECT * FROM ' + measurement['name'] #+ ' WHERE time > now() - ' + str(previous_hours) + 'h'
+                query_str_2 = 'SELECT * FROM ' + measurement['name']  #+ ' WHERE time > now() - ' + str(previous_hours) + 'h'
                 query_result_2 = self.query_database(query_str_2)
-                list_result = list(query_result_2.get_points(measurement['name']))
+                list_result = list(query_result_2.get_points( measurement['name'] ))
                 if 'href' in list_result[0]:
                     href = list_result[0]['href']
                 else:
