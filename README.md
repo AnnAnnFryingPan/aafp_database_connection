@@ -1,2 +1,2 @@
-# influxdb_connection
-Wraps connection to InfluxDb
+# database_connection package
+Wraps connection to database. E.g. InfluxDb
