@@ -1,6 +1,6 @@
 # Polymorphic factory methods.
 from __future__ import generators
-from databaseConnectionInflux import DatabaseConnectionInflux
+from database_connection.databaseConnectionInflux import DatabaseConnectionInflux
 
 
 class DatabaseConnectionFactory:

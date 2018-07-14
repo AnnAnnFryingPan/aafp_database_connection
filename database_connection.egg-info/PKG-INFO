@@ -1,6 +1,6 @@
 Metadata-Version: 1.0
 Name: database-connection
-Version: 0.1
+Version: 0.2
 Summary: Connection to a database e.g. influx
 Home-page: https://github.com/AnnAnnFryingPan/database_connection
 Author: Ann Gledson

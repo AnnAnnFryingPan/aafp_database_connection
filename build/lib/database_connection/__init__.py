@@ -1,1 +1,1 @@
-from influxdb_connection import Influxdb_connection
+from database_connection.databaseConnectionInflux import DatabaseConnectionInflux

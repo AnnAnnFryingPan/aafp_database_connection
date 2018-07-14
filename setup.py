@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='database_connection',
-      version='0.1',
+      version='0.2',
       description='Connection to a database e.g. influx',
       url='https://github.com/AnnAnnFryingPan/database_connection',
       author='Ann Gledson',

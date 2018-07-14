@@ -1,5 +1,5 @@
 from influxdb import InfluxDBClient
-from databaseConnection import DatabaseConnection
+from database_connection.databaseConnection import DatabaseConnection
 
 
 class DatabaseConnectionInflux(DatabaseConnection):
